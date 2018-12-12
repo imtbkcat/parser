@@ -873,6 +873,8 @@ import (
 	TableOptimizerHintOpt	"Table level optimizer hint"
 	TableOptimizerHints	"Table level optimizer hints"
 	TableOptimizerHintList	"Table level optimizer hint list"
+	GrantOptions "Grant with options"
+	GrantOpt "Grant with option"
 
 %type	<ident>
 	AsOpt			"AS or EmptyString"
@@ -7285,34 +7287,38 @@ WithGrantOptionOpt:
 	{
 		$$ = true
 	}
-|	"WITH" "MAX_QUERIES_PER_HOUR" NUM
+|	"WITH" GrantOptions
 	{
-		$$ = false
-	}
-|	"WITH" "MAX_UPDATES_PER_HOUR" NUM
-	{
-		$$ = false
-	}
-|	"WITH" "MAX_CONNECTIONS_PER_HOUR" NUM
-	{
-		$$ = false
-	}
-|	"WITH" "MAX_USER_CONNECTIONS" NUM
-	{
-		$$ = false
+		$$ = $2
 	}
 
 GrantOptions:
-{}
-|	GrantOption GrantOptions
-{}
+GrantOpt GrantOptions
+{
+	$$ = $1
+}
+|	GrantOpt
+{
+	$$ = $1
+}
 
-GrantOption:
-|	"MAX_QUERIES_PER_HOUR" NUM
+GrantOpt:
+"MAX_QUERIES_PER_HOUR" NUM
+{
+	$$ = false
+}
 |	"MAX_UPDATES_PER_HOUR" NUM
+{
+	$$ = false
+}
 |	"MAX_CONNECTIONS_PER_HOUR" NUM
+{
+	$$ = false
+}
 |	"MAX_USER_CONNECTIONS" NUM
-{}
+{
+	$$ = false
+}
 
 PrivElem:
 	PrivType
