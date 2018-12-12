@@ -7302,6 +7302,18 @@ WithGrantOptionOpt:
 		$$ = false
 	}
 
+GrantOptions:
+{}
+|	GrantOption GrantOptions
+{}
+
+GrantOption:
+|	"MAX_QUERIES_PER_HOUR" NUM
+|	"MAX_UPDATES_PER_HOUR" NUM
+|	"MAX_CONNECTIONS_PER_HOUR" NUM
+|	"MAX_USER_CONNECTIONS" NUM
+{}
+
 PrivElem:
 	PrivType
 	{
