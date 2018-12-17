@@ -190,15 +190,16 @@ func OutputFormat(s string) string {
 		}
 		buf.WriteRune(old)
 	}
-	ret, raw, lim := "", buf.String(), -1
+	raw, lim := []rune(buf.String()), -1
+	buf.Reset()
 	for i := len(raw) - 1; i >= 0; i-- {
-		if raw[i] != " " {
+		if raw[i] != ' ' {
 			lim = i + 1
 			break
 		}
 	}
 	for i := 0; i < lim; i++ {
-		ret += raw[i]
+		buf.WriteRune(raw[i])
 	}
-	return ret
+	return buf.String()
 }
