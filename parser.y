@@ -35,6 +35,7 @@ import (
 	"github.com/pingcap/parser/auth"
 	"github.com/pingcap/parser/charset"
 	"github.com/pingcap/parser/types"
+	formater "github.com/pingcap/parser/format"
 )
 
 %}
@@ -6828,6 +6829,9 @@ StringType:
 		x.Elems = $3.([]string)
 		x.Charset = $5.(string)
 		x.Collate = $6.(string)
+		for i := 0; i < len(x.Elems); i++ {
+			x.Elems[i] = formater.FormatEnum(x.Elems[i])
+		}
 		$$ = x
 	}
 |	"SET" '(' StringList ')' OptCharset OptCollate
@@ -6836,6 +6840,9 @@ StringType:
 		x.Elems = $3.([]string)
 		x.Charset = $5.(string)
 		x.Collate = $6.(string)
+		for i := 0; i < len(x.Elems); i++ {
+			x.Elems[i] = formater.FormatEnum(x.Elems[i])
+		}
 		$$ = x
 	}
 |	"JSON"

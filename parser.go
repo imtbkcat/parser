@@ -35,6 +35,7 @@ import (
 	"github.com/pingcap/parser/ast"
 	"github.com/pingcap/parser/auth"
 	"github.com/pingcap/parser/charset"
+	formater "github.com/pingcap/parser/format"
 	"github.com/pingcap/parser/model"
 	"github.com/pingcap/parser/mysql"
 	"github.com/pingcap/parser/opcode"
@@ -11886,6 +11887,9 @@ yynewstate:
 			x.Elems = yyS[yypt-3].item.([]string)
 			x.Charset = yyS[yypt-1].item.(string)
 			x.Collate = yyS[yypt-0].item.(string)
+			for i := 0; i < len(x.Elems); i++ {
+				x.Elems[i] = formater.FormatEnum(x.Elems[i])
+			}
 			parser.yyVAL.item = x
 		}
 	case 1282:
@@ -11894,6 +11898,9 @@ yynewstate:
 			x.Elems = yyS[yypt-3].item.([]string)
 			x.Charset = yyS[yypt-1].item.(string)
 			x.Collate = yyS[yypt-0].item.(string)
+			for i := 0; i < len(x.Elems); i++ {
+				x.Elems[i] = formater.FormatEnum(x.Elems[i])
+			}
 			parser.yyVAL.item = x
 		}
 	case 1283:
