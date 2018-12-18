@@ -7289,6 +7289,10 @@ WithGrantOptionOpt:
 	{
 		$$ = false
 	}
+|	"WITH" "MAX_UPDATES_PER_HOUR" NUM
+	{
+		$$ = false
+	}
 |	"WITH" "MAX_CONNECTIONS_PER_HOUR" NUM
 	{
 		$$ = false
