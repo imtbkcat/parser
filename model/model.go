@@ -20,6 +20,7 @@ import (
 
 	"github.com/pingcap/errors"
 	"github.com/pingcap/parser/auth"
+	"github.com/pingcap/parser/format"
 	"github.com/pingcap/parser/mysql"
 	"github.com/pingcap/parser/types"
 	"github.com/pingcap/tipb/go-tipb"
@@ -104,6 +105,13 @@ func (c *ColumnInfo) SetDefaultValue(value interface{}) error {
 			return nil
 		}
 		return types.ErrInvalidDefault.GenWithStackByArgs(c.Name)
+	}
+	if c.Tp == mysql.TypeEnum || c.Tp == mysql.TypeSet {
+		if v, ok := value.(string); ok {
+			v = format.FormatEnumAndSet(v)
+			c.DefaultValue = v
+			return nil
+		}
 	}
 	return nil
 }
