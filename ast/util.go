@@ -21,11 +21,11 @@ func IsReadOnly(node Node) bool {
 			return false
 		}
 
-		// checker := readOnlyChecker{
-		//	readOnly: true,
-		// }
+		checker := readOnlyChecker{
+			readOnly: true,
+		}
 
-		// node.Accept(&checker)
+		node.Accept(&checker)
 		return true
 	case *ExplainStmt:
 		return !st.Analyze || IsReadOnly(st.Stmt)
