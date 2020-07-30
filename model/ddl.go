@@ -21,7 +21,6 @@ import (
 	"time"
 
 	"github.com/pingcap/errors"
-	"github.com/pingcap/parser/terror"
 )
 
 // ActionType is the type for DDL action.
@@ -192,7 +191,7 @@ type Job struct {
 	TableID    int64         `json:"table_id"`
 	SchemaName string        `json:"schema_name"`
 	State      JobState      `json:"state"`
-	Error      *terror.Error `json:"err"`
+	Error      *errors.Error `json:"err"`
 	// ErrorCount will be increased, every time we meet an error when running job.
 	ErrorCount int64 `json:"err_count"`
 	// RowCount means the number of rows that are processed.
